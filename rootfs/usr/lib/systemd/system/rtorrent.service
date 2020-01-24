@@ -1,0 +1,16 @@
+[Unit]
+Description=systemd integration for rtorrent - starts/stops rtorrent instances on startup/shutdown
+Wants=network-online.target
+After=network-online.target
+
+[Service]
+User=rtorrent
+Group=users
+Type=simple
+KillMode=process
+ExecStart=/usr/bin/rtorrent -n -o import=/config/rtorrent/rtorrent.rc
+WorkingDirectory=/config
+
+[Install]
+RequiredBy=flood.service
+WantedBy=multi-user.target

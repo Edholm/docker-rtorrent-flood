@@ -1,0 +1,10 @@
+[Unit]
+Description=PrepareService
+
+[Service]
+Type=oneshot
+ExecStart=/usr/bin/00-file-cfg.sh
+
+[Install]
+RequiredBy=flood.service
+WantedBy=multi-user.target
