@@ -20,7 +20,7 @@ const CONFIG = {
   diskUsageService: {
     // assign desired mounts to include. Refer to "Mounted on" column of `df -P`
     watchMountPoints: [
-       "/download"
+       "/"
      ]
   }
 };

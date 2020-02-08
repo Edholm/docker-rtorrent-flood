@@ -1,17 +1,10 @@
 #!/usr/bin/env bash
 # Used to automatically unrar a movie/show if needed
 # Requires the following:
-# * fd
-# * atool
+# * find
 # * unrar
 
-# These environment variables are set by transmission
-# TR_APP_VERSION
-# TR_TIME_LOCALTIME
-# TR_TORRENT_DIR
-# TR_TORRENT_HASH
-# TR_TORRENT_ID
-# TR_TORRENT_NAME
+# rtorrent sends base path as first argument
 
 # Settings
 # Temp unrar dir. Put this on same filesystem so hardlinking is possible
@@ -20,18 +13,24 @@ ALLOWED_EXT=".mkv"
 
 
 ########## TEMP
-#TR_TORRENT_DIR="/volume1/Warez/download/tv/sonarr"
+#TR_TORRENT_DIR="/volume1/Warez/volume1/Warez/download/tv/sonarr"
 #TR_TORRENT_NAME="The.Good.Doctor.S02E08.1080p.WEB.H264-METCON"
 ########## TEMP
 
-TORRENT_PATH="${TR_TORRENT_DIR}/${TR_TORRENT_NAME}"
+TORRENT_PATH="${1}"
+LABEL="${2}"
 
-echo Downloaded $TORRENT_PATH
+echo Downloaded $TORRENT_PATH with label ${LABEL}
 
 if [[ ! -d "${TORRENT_PATH}" ]]; then
     # Not a directory so we don't care...
     # If torrent is a single archive we probably don't want to unpack it anyways
     echo ${TORRENT_PATH} is not a directory
+    exit 0
+fi
+
+if [[ "${LABEL}" != "tv" ]] && [[ "${LABEL}" != "movies" ]]; then
+    echo ${TORRENT_PATH} is not labeled as TV or movies
     exit 0
 fi
 
@@ -46,7 +45,6 @@ function is_eligible_for_unpack() {
 }
 
 function unpack() {
-    #aunpack "$1" -X "${UNPACK_DIR}" -q
     echo "Unraring ${1}"
     unrar x "$1" "${UNPACK_DIR}" >/dev/null
 

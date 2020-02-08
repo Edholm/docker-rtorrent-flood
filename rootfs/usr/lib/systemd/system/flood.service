@@ -10,7 +10,7 @@ StandardOutput=syslog
 StandardError=syslog
 SyslogIdentifier=notell
 User=rtorrent
-Group=users
+Group=65538
 Environment=NODE_ENV=production
 
 [Install]

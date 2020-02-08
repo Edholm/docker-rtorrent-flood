@@ -1,7 +1,7 @@
 FROM amd64/centos:latest
 
 # Enabled systemd
-ENV container=docker UID="177169" GID="100"
+ENV container=docker UID="1005" GID="65538"
 
 RUN (cd /lib/systemd/system/sysinit.target.wants/; for i in *; do [ $i == \
 systemd-tmpfiles-setup.service ] || rm -f $i; done); \
@@ -16,7 +16,8 @@ rm -f /lib/systemd/system/anaconda.target.wants/*;
 #VOLUME [ "/sys/fs/cgroup" ]
 
 VOLUME [ "/config" ]
-VOLUME [ "/download" ]
+VOLUME [ "/volume1/Warez/download" ]
+VOLUME [ "/volume1/Warez/download-incomplete" ]
 
 # copy root
 COPY rootfs/ /
@@ -28,7 +29,7 @@ RUN yum config-manager --set-enabled PowerTools
 
 # rTorrent
 RUN yum install -y rtorrent psmisc
-#RUN groupadd rtorrent --gid=${GID}
+RUN groupadd rtorrent --gid=${GID}
 RUN useradd rtorrent -d /home/rtorrent -G wheel --uid=${UID} --gid=${GID}
 
 # flood

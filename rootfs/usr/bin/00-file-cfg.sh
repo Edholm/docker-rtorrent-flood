@@ -3,7 +3,7 @@
 # rTorrent + FloodUI
 rm -rf /config/rtorrent/session/rtorrent.lock
 
-mkdir -p /download/
+mkdir -p /volume1/Warez/download/
 
 mkdir -p /config/rtorrent/session
 mkdir -p /config/rtorrent/log
@@ -20,8 +20,8 @@ if [ ! -d /config/flood/db ]; then
 fi
 
 chmod 775 -R /config
-#chmod 775 -R /download
+#chmod 775 -R /volume1/Warez/download
 
-#chown rtorrent: -R /download
+#chown rtorrent: -R /volume1/Warez/download
 chown rtorrent: -R /config/rtorrent
 chown rtorrent: -R /config/flood

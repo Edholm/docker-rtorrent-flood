@@ -5,7 +5,7 @@ After=network-online.target
 
 [Service]
 User=rtorrent
-Group=users
+Group=65538
 Type=simple
 KillMode=process
 ExecStart=/usr/bin/rtorrent -n -o import=/config/rtorrent/rtorrent.rc
